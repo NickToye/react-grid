@@ -22,7 +22,7 @@ export default class Grid extends Component {
   render() {
     const { children, className, gap } = this.props;
     console.log(children.length);
-    const gridClasses = classNames("u-grid", className, {});
+    const gridClasses = classNames("u-grid fizz-test", className, {});
     return (
       <CustomProperties
         properties={{

@@ -12,14 +12,11 @@ export default class Grid extends Component {
     children: PropTypes.node,
     /** Specify an optional className that will be applied to the container node */
     className: PropTypes.string,
-    /** Columns string */
-    columns: PropTypes.string,
     /** Gap string */
     gap: PropTypes.string
   };
 
   static defaultProps = {
-    columns: "3",
     gap: "24px"
   };
   render() {

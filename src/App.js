@@ -39,12 +39,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <Grid className="u-margin-bottom">
-          {this.state.children.map(item => (
-            <div className="cell">Cell</div>
-          ))}
-        </Grid>
-        <div className="u-buttons">
+        <div className="u-buttons  u-margin-bottom">
           <button type="button" onClick={this.addChildren} className="c-btn">
             +
           </button>
@@ -53,6 +48,11 @@ export default class App extends Component {
             -
           </button>
         </div>
+        <Grid>
+          {this.state.children.map(item => (
+            <div className="cell">Cell</div>
+          ))}
+        </Grid>
       </div>
     );
   }

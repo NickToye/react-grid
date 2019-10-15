@@ -17,17 +17,22 @@ export default class Grid extends Component {
   };
 
   static defaultProps = {
+    customColumns: "4",
+    customGrid: false,
     gap: "24px"
   };
   render() {
-    const { children, className, gap } = this.props;
+    const { children, className, gap, customGrid, customColumns } = this.props;
     console.log(children.length);
-    const gridClasses = classNames("u-grid fizz-test", className, {});
+    const gridClasses = classNames("u-grid", className, {
+      "u-grid--custom": customGrid
+    });
     return (
       <CustomProperties
         properties={{
           "--grid-columns": children.length,
-          "--grid-gutter": gap
+          "--grid-gutter": gap,
+          "--grid-template-columns": customColumns
         }}
       >
         <div className={gridClasses}>{children}</div>

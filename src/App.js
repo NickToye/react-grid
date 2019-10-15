@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import Grid from "./components/Grid/Grid";
 
 import "./App.css";
@@ -11,7 +11,6 @@ export default class App extends Component {
       children: [1, 2, 3, 4]
     };
   }
-  // const [count, setCount] = useState(0);
 
   clearChildren = () => {
     this.setState({ children: [] });

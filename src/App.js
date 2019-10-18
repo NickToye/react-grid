@@ -50,7 +50,9 @@ export default class App extends Component {
         </div>
         <Grid>
           {this.state.children.map(item => (
-            <div className="cell">Cell</div>
+            <div className="cell" key={item}>
+              Cell
+            </div>
           ))}
         </Grid>
       </div>

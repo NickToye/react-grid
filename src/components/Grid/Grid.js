@@ -1,42 +1,71 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+
+import useWindowSize from "../../hooks/use-window-size";
+import useDimensions from "react-use-dimensions";
 
 import CustomProperties from "react-custom-properties";
 
 import "./Grid.css";
 
-export default class Grid extends Component {
-  static propTypes = {
-    /** Pass in the children that will be rendered within the form */
-    children: PropTypes.node,
-    /** Specify an optional className that will be applied to the container node */
-    className: PropTypes.string,
-    /** Gap string */
-    gap: PropTypes.string
+const Grid = ({
+  children,
+  className,
+  gap,
+  customColumns,
+  customGrid,
+  ...other
+}) => {
+  const gridClasses = classNames("u-grid", className, {
+    "u-grid--custom": customGrid
+  });
+
+  const commonProps = {
+    className: gridClasses
   };
 
-  static defaultProps = {
-    customColumns: "4",
-    customGrid: false,
-    gap: "24px"
-  };
-  render() {
-    const { children, className, gap, customGrid, customColumns } = this.props;
-    console.log(children.length);
-    const gridClasses = classNames("u-grid", className, {
-      "u-grid--custom": customGrid
-    });
-    return (
-      <CustomProperties
-        properties={{
-          "--grid-columns": children.length,
-          "--grid-gutter": gap,
-          "--grid-template-columns": customColumns
-        }}
-      >
-        <div className={gridClasses}>{children}</div>
-      </CustomProperties>
-    );
-  }
-}
+  const [ref, { x, y, width, height }] = useDimensions();
+
+  const gridWidth = width;
+  const gridChildren = children.length;
+  const gridGap = parseInt(gap, 10);
+
+  const cellWidth =
+    (gridWidth - (gridChildren - 1) * gridGap) / children.length;
+
+  const grid = (
+    <div {...other} {...commonProps} ref={ref}>
+      {children}
+    </div>
+  );
+
+  // const size = useWindowSize();
+
+  return (
+    <CustomProperties
+      properties={{
+        "--grid-columns": children.length > 12 ? 12 : children.length,
+        "--grid-gutter": gap,
+        "--grid-template-columns": customColumns
+      }}
+    >
+      {grid}
+      <p>Cell widths: {cellWidth}</p>
+    </CustomProperties>
+  );
+};
+
+Grid.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+  gap: PropTypes.string
+};
+
+Grid.defaultProps = {
+  customColumns: "4",
+  customGrid: false,
+  gap: "24px"
+};
+
+export default Grid;
